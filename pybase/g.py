@@ -1,0 +1,13 @@
+from gevent import monkey
+monkey.patch_all()
+from time import sleep,time
+def fetch_url(url):
+    print "Fetching %s" % url
+    sleep(10)
+    print "done fetching %s" % url
+from gevent.pool import Pool
+urls = ["http://www.baidu.com","http://www.jd.com","http://www.z.cn","wwww","bbbb","cccc","dddd","eeee"]
+p = Pool(20)
+start = time()
+p.map(fetch_url,urls)
+print time()-start
