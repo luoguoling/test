@@ -3,9 +3,13 @@ __author__ = 'Administrator'
 from SocketServer import TCPServer,ThreadingMixIn,StreamRequestHandler
 import time,os,commands
 #HOST = '207.198.106.114'
-HOST = '211.237.12.2'
-PORT = 1004
+HOST = 'xxxx'
+PORT = 1003
 def transfertime(ret):
+    """
+    @ret:客户端传入值
+    时间转换
+    """
     a = filter(str.isdigit,ret)
     a = list(a)
     c = ''
@@ -20,8 +24,14 @@ def transfertime(ret):
     a = time.mktime(time.strptime(c,'%Y-%m-%d %H:%M:%S'))
     return a
 def stopjava():
+    """
+    关闭java
+    """
     os.popen('pkill java')
 def startjava():
+    """
+    开启游戏
+    """
     os.popen("cd /data/game/pubserver/qmrserver && /bin/sh start.sh >/dev/null 2>&1")
     os.popen("cd /data/game/kuafu/qmrserver && /bin/sh start.sh >/dev/null 2>&1")
 #    os.popen('cd /data/game/version/qmrserver1/qmrserver && /bin/sh start.sh')
@@ -35,9 +45,16 @@ def startjava():
 
 
 def updatejava():
+    """
+    更新java版本
+    """
     os.popen('rsync -vzrtopg --progress --stats  /var/ftp/qmrserver/* /data/game/newversion > /dev/null 2>&1')
 logfile = open('name1.txt','a')
 def log(msg):
+    """
+    @msg:记录的日志内容
+    日志记录函数
+    """
     datenow = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())
     logstr = '%s : %s \n' %(datenow, msg)
     #print(logstr)
@@ -103,6 +120,9 @@ def funzioneDemo():
     server = ThreadingServer((HOST,PORT),Handler)
     server.serve_forever()
 def createDaemon():
+    """
+    创建进程
+    """
     try:
         if os.fork() > 0:
             os._exit(0)
