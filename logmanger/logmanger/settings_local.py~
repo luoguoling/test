@@ -1,0 +1,9 @@
+LOGMANGER_MYSQL = {
+        "host": "",
+        "port": ,
+        "database": "",
+        "user": "",
+        "password": ""
+        
+        
+        }
