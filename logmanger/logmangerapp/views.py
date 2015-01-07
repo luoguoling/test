@@ -5,12 +5,14 @@ import socket
 from django.db import connection,models
 from logmangerapp.models import AddLogpath
 from logmangerapp.models import AddPhpLogpath
+from logmangerapp.models import addCommand
 import MySQLdb
-import json
+import json,urllib
 import logging
 from django.http import HttpResponse
 from mysql import db_operate
 from selectip import select_ip
+from selectPlatformAlias import select_platformAlias
 from logmanger import settings
 # Create your views here.
 def socket_send(ip,command):
@@ -370,10 +372,88 @@ def test(request):
 #    print logexist
     for list in logexist:
 	print list.logpath
-    if list.logpath == request.POST['url']:
+    if request.POST['url'] in list.logpath:
 	print 'the logpath is exist'
     else:
 	l1 = AddLogpath(logpath=request.POST['url'],logtype=request.POST['type'])
 	l1.save()
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+@csrf_exempt
+def ExecCommand(request):
+    """Exec command"""
+#    P = select_platformAlias()
+#    platformAliass = P.selectplatformAlias()
+#    for platformAlias in platformAliass:
+#        print platformAlias
+    TxtCommandResult = ['result']
+    execcommand = addCommand.objects.all().distinct()
+#    for execcommand in execcommand1:
+#        print execcommand
+#    print execcommand1
+   # print 'the path is %s', % execcommand1
+#    for execcommand in execcommand1:
+#        print 'the result is'
+#        print execcommand
+#        print execcommand.addcommand
+    sql2='select distinct(platformAlias) from mds_server'
+    db = db_operate()
+    platformAliass = db.mysql_command(settings.LOGMANGER_MYSQL,sql2)
+    print platformAliass
+    if request.method == 'POST':
+        try:
+            platformAlias = request.POST['agent']
+        except:
+            pass
+        try:
+            serverId = request.POST['zone']
+        except:
+            pass
+        try:
+            execCommand1 = request.POST['execcommand']
+            print execCommand1
+            execCommand = urllib.unquote(execCommand1)
+            print 'execCommand'
+            print execCommand
+        except:
+            pass
+        try:
+            javapid = request.POST['javapid']
+        except:
+            pass
+        print platformAlias,serverId,execCommand,javapid
+        A = select_ip()
+        serverIp = A.selectip(platformAlias,serverId)
+        print serverIp
+#        execcommand = ExecCommand.objects.all()
+#        print execcommand
+        for list in execcommand:
+            print list.addcommand
+        if execCommand in list.addcommand:
+            print 'the command is exist'
+        else:
+            l2 = addCommand(addcommand=execCommand)
+            l2.save()
+        serverinfo_list = []
+        serverinfo = {}
+        serverinfo["platformAlias"] = platformAlias
+        serverinfo["serverId"] = serverId
+        serverinfo["serverIp"] = serverIp
+        serverinfo["execcommand"] = execCommand
+        serverinfo["javapid"] = javapid
+        serverinfo_list.append(serverinfo)
+        command = {}
+        command["cmd"] = 'logoperate'
+        command["checkType"] = 'ExecCommand'
+        command["serverinfo_list"] = serverinfo_list
+        command = json.dumps(command) + "#zbcyh#"
+        print command
+        try:
+            commandResult = socket_send('14.18.204.150',command)
+        except:
+            print 'not connect'
+        JsCommandResult = json.loads(commandResult)
+        TxtCommandResult = JsCommandResult['msg']
+        print TxtCommandResult
+    return render_to_response('CommandResult.html',{'result':platformAliass,'result2':execcommand,'result3':TxtCommandResult})
 

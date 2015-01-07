@@ -39,7 +39,7 @@
 				
 			<form class='form-inline' role='form' method='post' enctype="multipart/form-data">
 				<div class='form-group'>
-					<select name='agent'  id='e1' style='width: 120px;height: 20px;display block;'>
+					<select name='agent'  id='e1' style='width: 120px;'>
                         {%for agent in result2 %}
                         <option value={{agent}}>{{agent}}</option>
                         {%endfor%}
@@ -53,7 +53,7 @@
 				</div>
 				<div class='form-group'>
 
-					<select  name='logdir'  id='e2' style='width: 320px;height: 20px;display block;' onchange=if(s=document.getElementById("S1")){s.style.color=value}>
+					<select  name='logdir'  id='e2' style='width: 320px;' onchange=if(s=document.getElementById("S1")){s.style.color=value}>
                         		{%for log in result %}
     					<!--<option value='/data/www/weblog/rmblog'>/data/www/weblog/rmblog</option> -->
                         		<option value={{ log.logpath}}>{{ log.logpath }}</option>
@@ -97,12 +97,12 @@
 				</div>
 				<div class='form-group'>
 					<label class='sr-only' for='name'>输入查看区服</label>
-					<input type='text' class='form-control' name='zone'  placeholder='输入查看区服'>
+					<input type='text' class='form-control input-sm' name='zone'  placeholder='输入查看区服'>
 					
 				</div>
 				<div class='form-group'>
 					<label class='sr-only' for='name'>输入查看条数</label>
-					<input type='text' class='form-control' name='sum'  placeholder='输入查看条数'>
+					<input type='text' class='form-control input-sm' name='sum'  placeholder='输入查看条数'>
 					
 				</div>
 
@@ -112,7 +112,7 @@
 				</div>
                 
 				<div class='form-group'>
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">添加路径</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加路径</button>
                 </div>	
 			</form>
 

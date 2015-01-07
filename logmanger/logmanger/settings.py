@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'logmangerapp',
-    'logmanger',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,6 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'logmanger.urls'
@@ -89,9 +89,9 @@ TEMPLATE_DIRS = (
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-CN'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -128,7 +128,7 @@ LOGGING = {
                 },
             'test1_handler':{
                 'level':'ERROR',
-                'class':'django.utils.log.NullHandler',
+                'class':'django.utils.log.AdminEmailHandler',
                 'formatter':'standard',
                 },
             
@@ -141,7 +141,7 @@ LOGGING = {
                 },
             'test1':{
                 'handlers':['test1_handler'],
-                'level':'INFO',
+                'level':'ERROR',
                 'propagate':False,
                 },
             

@@ -48,6 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'logmanger.urls'
@@ -127,7 +128,7 @@ LOGGING = {
                 },
             'test1_handler':{
                 'level':'ERROR',
-                'class':'django.utils.log.NullHandler',
+                'class':'django.utils.log.AdminEmailHandler',
                 'formatter':'standard',
                 },
             
@@ -140,7 +141,7 @@ LOGGING = {
                 },
             'test1':{
                 'handlers':['test1_handler'],
-                'level':'INFO',
+                'level':'ERROR',
                 'propagate':False,
                 },
             
