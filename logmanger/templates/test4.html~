@@ -22,7 +22,7 @@
 	}
 	#maincontent
 	{
-	height: 979px;
+	height: 1000px;
 	width: 100%;
 	}
 	#content

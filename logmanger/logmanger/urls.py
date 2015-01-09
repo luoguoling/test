@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^searchjavalog/','logmangerapp.views.searchjavalog',name='searchjavalog'),
     url(r'downjavalog/','logmangerapp.views.downjavalog',name='downjavalog'),
     url(r'^test/','logmangerapp.views.test',name='test'),
-    url(r'^ExecCommand/','logmangerapp.views.ExecCommand',name='ExecCommand')
+    url(r'^ExecCommand/','logmangerapp.views.ExecCommand',name='ExecCommand'),
+    url(r'^login/','logmangerapp.views.login',name='login')
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

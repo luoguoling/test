@@ -1,5 +1,7 @@
 from django.shortcuts import render,render_to_response
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
+from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 import socket
 from django.db import connection,models
@@ -14,6 +16,8 @@ from mysql import db_operate
 from selectip import select_ip
 from selectPlatformAlias import select_platformAlias
 from logmanger import settings
+from django.contrib.auth import authenticate,login
+from logmangerapp.forms import LoginForm
 # Create your views here.
 def socket_send(ip,command):
     sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -45,6 +49,27 @@ def socket_send(ip,command):
 @csrf_exempt
 def view(request):
     return render_to_response('test4.html')
+@csrf_exempt
+def login(request):
+    if request.method == 'GET':
+        form = LoginForm()
+        return render_to_response('login.html',RequestContext(request,{'form':form}))
+    else:
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username,password=password)
+            response = HttpResponseRedirect('view')
+            response.set_cookie('username',username,max_age=3600)
+            if user is not None and user.is_active:
+                auth.login(request,user)
+                return render_to_response('test4.html',{'form':form,'password_is_wrong':True})
+            else:
+                return render_to_response('loginerror.html')
+        else:
+            return render_to_response('login.html',{'form':form,})
+
 @csrf_exempt
 def view2(request):
     """check php log"""
@@ -411,7 +436,10 @@ def ExecCommand(request):
             pass
         try:
             execCommand1 = request.POST['execcommand']
+            print execCommand1
             execCommand = urllib.unquote(execCommand1)
+            print 'execCommand'
+            print execCommand
         except:
             pass
         try:
