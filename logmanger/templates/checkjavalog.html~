@@ -90,7 +90,7 @@
 				<div class='form-group'>
 				<!--	<div class="input-append date form_datetime"> -->
 					<script language="javascript" type="text/javascript" src="http://120.138.75.88/download/My98DatePicker/WdatePicker.js"></script>
-      					<input type="text"  name='date' placeholder="请选择时间" class='input-sm' onclick="WdatePicker()">
+      					<input type="text"  name='date' placeholder="请选择时间" class='input-sm form-control' onclick="WdatePicker()">
       				<!-- <span class='add-on'><i class='icon-remove'></i></span> -->
       					<!--<span class="add-on"><i class='icon-th'></i></span>-->
     				
@@ -189,8 +189,8 @@
 	<script>
 
             $("#urlSubmitBtn").click(function(){
-                    $.post("/test/",{url:$("#url").val(),type:$("#type").val()},function(data){
-                        alert('数据添加成功');
+                    $.post("/test/",{url:$("#url").val(),type:$("#type").val()},function(data,status){
+                        alert(data + 'add' + status);
                         })
                   // alert($("#url").val());
              });

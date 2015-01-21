@@ -26,6 +26,11 @@
             
 	</script>
 	<style type="text/css">
+    .comments{
+    width:100%;
+    overflow:auto;
+    word-break:break-all;
+    }
 	.red{color:#f00;}
 	</style>
     <script src="/static/js/jquery-validate.bootstrap-tooltip.min.js" type="text/javascript"></script>	
@@ -136,7 +141,7 @@
 			<form role='form'>
 				<div class='form-group'>
 					<label for='name'>java日志搜索信息:</label>
-					<textarea class='form-control' rows='42' wrap='Virtual'>{{result3}}</textarea>
+					<textarea class='form-control comments' rows='42' wrap='Virtual' onpropertychange="this.style.posHeight=this.scrollHeight">{{result3}}</textarea>
 				</div>
 			</form>
             <script>
@@ -189,8 +194,8 @@
 	<script>
 
             $("#urlSubmitBtn").click(function(){
-                    $.post("/test/",{url:$("#url").val(),type:$("#type").val()},function(data){
-                        alert('数据添加成功');
+                    $.post("/test/",{url:$("#url").val(),type:$("#type").val()},function(data,status){
+                        alert(data + 'add' + status);
                         })
                   // alert($("#url").val());
              });

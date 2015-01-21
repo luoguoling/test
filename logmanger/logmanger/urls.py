@@ -20,6 +20,10 @@ urlpatterns = patterns('',
     url(r'downjavalog/','logmangerapp.views.downjavalog',name='downjavalog'),
     url(r'^test/','logmangerapp.views.test',name='test'),
     url(r'^ExecCommand/','logmangerapp.views.ExecCommand',name='ExecCommand'),
-    url(r'^login/','logmangerapp.views.login',name='login')
+    url(r'^login/','logmangerapp.views.login',name='login'),
+    url(r'^get_tree_data','updateapp.views.JSONGetView',name='get_tree_data'),
+    url(r'^set_tree','updateapp.views.JSONSetView',name='set_tree'),
+    url(r'^viewztree','updateapp.views.ViewZtree',name='viewztree'),
+    url(r'^updatejava','updateapp.views.updatejava',name='updatejava')
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

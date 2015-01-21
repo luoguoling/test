@@ -402,8 +402,10 @@ def test(request):
     else:
 	l1 = AddLogpath(logpath=request.POST['url'],logtype=request.POST['type'])
 	l1.save()
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
-
+    result = "chenggong"
+#    return HttpResponse('result')
+    print response_data['data']
+    return HttpResponse(json.dumps(response_data['data']), content_type="application/json")
 @csrf_exempt
 def ExecCommand(request):
     """Exec command"""
