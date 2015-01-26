@@ -16,11 +16,11 @@ def get_log():
     logger = logging.getLogger('root')
     return logger
 def get_con():
-    host = "211.237.12.103"
-    port = 5849
+    host = "xxxxx"
+    port = xxxx
     logsdb = "serverlist"
-    user = "rolin"
-    password = "abc123?"
+    user = "xxxx"
+    password = "xxxxx"
     con = MySQLdb.connect(host=host, user=user, passwd=password, db=logsdb, port=port, charset="utf8")
     return con
 
