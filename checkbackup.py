@@ -16,11 +16,11 @@ def get_log():
     logger = logging.getLogger('root')
     return logger
 def get_con():
-    host = "120.138.75.88"
-    port = 5849
+    host = "xxxxxx"
+    port = xxxx
     logsdb = "serverlist"
-    user = "qmrgame"
-    password = "Qmrgame925833"
+    user = "xxxx"
+    password = "xxxxxxxx"
     con = MySQLdb.connect(host=host, user=user, passwd=password, db=logsdb, port=port, charset="utf8")
     return con
 
